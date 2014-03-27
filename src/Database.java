@@ -28,16 +28,20 @@ public class Database {
 			}
 
 			// Loading driver
-			Class.forName("com.psqlostgresql.jdbc.Driver");
-			url = "jdbc:postgresql:kitchenManager";
+			try {
+				Class.forName("org.postgresql.Driver");
+			} catch (Exception e) {
+				System.err.println("Error: Unable to load driver: " + e.getLocalizedMessage());
+			}
+			url = "jdbc:postgresql://localhost:5432/kitchenManager";
 
-			Connection conn = DriverManager.getConnection(url);
+			Connection conn = DriverManager.getConnection(url, "postgres", "emelie");
 			stmt = conn.createStatement();
 			if (DEBUG) {
 				System.out.println("Connection established!");
 			}
 		} catch (Exception e) {
-			System.err.println("Error: Unable to connect to server");
+			System.err.println("Error: Unable to connect to server: " + e.getLocalizedMessage());
 			throw new RuntimeException("Error: Unable to connect to server ", e);
 		}
 	}
