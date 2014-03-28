@@ -29,7 +29,7 @@ public class Menyn {
 		System.out.println("2. Show recipes");
 		System.out.println("3. Been shopping");
 		System.out.println("4. Get recipe ingrediense list");
-		System.out.println("5. Finished cooking");
+		System.out.println("5. Cook recipe");
 		System.out.println("6. Get possible recipes based on current food storage");
 		System.out.println("7. Choose recipes för grocery shopping");
 		System.out.println("8. Quit");
@@ -74,12 +74,34 @@ public class Menyn {
 				listAllIngRec(recipeName);
 				break;
 
+			case 5:
+				choice = 5;
+				System.out.println("Enter recipes name \n");
+				String recipeNameUpd = getCommandString();
+				if (possibleRecipe(recipeNameUpd)) {
+					updateKitchen(recipeNameUpd);
+					System.out.println("Kitchen storage updated! \n");
+				} else
+					System.out.println("Not enough ingredients");
+				break;
+
 			default:
 				String invalid = "Invalid input";
 				System.out.println(invalid);
 				break;
-
 		}
+	}
+
+	private boolean possibleRecipe(String recipeNameUpd) {
+		// TODO Auto-generated method stub
+		String query = "SELECT * FROM inrecipe A JOIN inkitchen" + " B ON A.ingrediensname = B.name WHERE A.recipename = '" + recipeNameUpd + "'";
+		return true;
+	}
+
+	private boolean updateKitchen(String recipeNameUpd) {
+		String query = "SELECT * FROM recipes";
+		return exQuery(query);
+
 	}
 
 	private boolean listAllRec() {
@@ -94,7 +116,7 @@ public class Menyn {
 	}
 
 	private boolean listAllIngRec(String recipeName) {
-		String query = "SELECT ingrediensname, amount FROM inrecipe";
+		String query = "SELECT ingrediensname, amount FROM inrecipe WHERE recipename = '" + recipeName + "'";
 		return exQuery(query);
 
 	}
