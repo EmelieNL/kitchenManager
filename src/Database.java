@@ -44,5 +44,10 @@ public class Database {
 			System.err.println("Error: Unable to connect to server: " + e.getLocalizedMessage());
 			throw new RuntimeException("Error: Unable to connect to server ", e);
 		}
+
+	}
+
+	public Statement getStatement() {
+		return stmt;
 	}
 }
