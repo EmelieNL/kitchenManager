@@ -16,6 +16,7 @@ public class Database {
 
 	String url;
 	Statement stmt;
+	Connection conn;
 
 	/**
 	 * Default constructor that creates a connection to an PostgreSQL server
@@ -35,7 +36,7 @@ public class Database {
 			}
 			url = "jdbc:postgresql://localhost:5432/kitchenManager";
 
-			Connection conn = DriverManager.getConnection(url, "postgres", "emelie");
+			conn = DriverManager.getConnection(url, "postgres", "emelie");
 			stmt = conn.createStatement();
 			if (DEBUG) {
 				System.out.println("Connection established!");
@@ -49,5 +50,9 @@ public class Database {
 
 	public Statement getStatement() {
 		return stmt;
+	}
+
+	public Connection getConnection() {
+		return conn;
 	}
 }
